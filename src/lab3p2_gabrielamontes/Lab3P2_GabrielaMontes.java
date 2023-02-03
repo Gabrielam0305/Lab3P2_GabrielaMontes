@@ -145,6 +145,60 @@ public class Lab3P2_GabrielaMontes {
             System.out.println("" + concesionarias.indexOf(c) + " " + c);
         }
     }
+    //clientes
+    static void cliente(ArrayList<Cliente> clientes) {
+        Scanner entrada = new Scanner(System.in);
+        int op1 = 0;
+        while (op1 != 2) {
+            System.out.println("--menu--");
+            System.out.println("1. Crear");
+            System.out.println("2. Eliminar");
+            int op = entrada.nextInt();
+            switch (op) {
+                case 1:
+                    crearcliente(clientes);
+                    //crear
+                    break;
+                case 2:
+                    entrada = new Scanner(System.in);
+                    //listar
+                    listarclientes(clientes);
+                    System.out.println("Que posicion desea eliminar");
+                    int remove = entrada.nextInt();
+                    clientes.remove(remove);
+                    //eliminar
+                    break;
+            }
+            System.out.println("--menu--");
+            System.out.println("1. CRUD Concesionaria");
+            System.out.println("2. Salir");
+            op1 = entrada.nextInt();
+        }
+    }
     
+    static void crearcliente(ArrayList<Cliente> clientes) {
+        Scanner entrada = new Scanner(System.in);
+        int op = 0;
+        while (op != 2) {
+            entrada = new Scanner(System.in);
+            System.out.println("Ingrese el nombre: ");
+            String nom = entrada.nextLine();
+            int id = clientes.size() + 1;
+            System.out.println("Ingrese el saldo: ");
+            double sal = entrada.nextInt();
+            Cliente c=new Cliente(id, nom, sal);
+            clientes.add(c);
+            System.out.println("--menu--");
+            System.out.println("1. Crear");
+            System.out.println("2. Salir");
+            op = entrada.nextInt();
+        }
+    }
+    
+    static void listarclientes(ArrayList<Cliente> clientes) {
+        for (Cliente c : clientes) {
+            System.out.println("" + clientes.indexOf(c) + " " + c);
+        }
+    }
     
 }
