@@ -45,13 +45,18 @@ public class Lab3P2_GabrielaMontes {
                     break;
                 case 3:
                     if (concesionarias.size() > 0) {
-
+                        vehiculo(vehiculos, concesionarias);
                     } else {
                         System.out.println("Opcion no disponible hasta que se creen concesionarias. ");
                     }
                     //vehiculos
                     break;
                 case 4:
+                    if (vehiculos.size()>0) {
+                        compraryvender(concesionarias, clientes);
+                    }else{
+                        System.out.println("No esta disponible sin vehiculos");
+                    }
                     //compra y venta
                     break;
             }
@@ -65,7 +70,7 @@ public class Lab3P2_GabrielaMontes {
         }
     }
     //comprar y vender
-    static void compraryvender(){
+   public static void compraryvender(ArrayList<Concesionaria> concesionarias, ArrayList<Cliente> clientes){
         Scanner entrada = new Scanner(System.in);
         System.out.println("--menu--");
         System.out.println("1. Comprar");
@@ -75,10 +80,11 @@ public class Lab3P2_GabrielaMontes {
         while (op != 3) {
             switch (op) {
                 case 1:
-                    
+                    comprar(concesionarias, clientes);
                     //comprar
                     break;
                 case 2:
+                    vender(concesionarias, clientes);
                     //vender
                     break;
     }
@@ -109,12 +115,14 @@ public class Lab3P2_GabrielaMontes {
                 if (clientes.get(poscliente).getSaldo()>=concesionarias.get(op).getVehiculos().get(pos).getPrecio()) {
                     double nsaldo=((clientes.get(poscliente).getSaldo())-(concesionarias.get(op).getVehiculos().get(pos).getPrecio()));
                     clientes.get(poscliente).setSaldo(nsaldo);
-                    double ncons=nsaldo*0.075;
+                    double ncons=((concesionarias.get(op).getVehiculos().get(pos).getPrecio())*0.075);
                     double nsaldocons=concesionarias.get(op).getSaldo()+ncons;
                     concesionarias.get(op).setSaldo(nsaldocons);
                     concesionarias.get(op).getClientes().add(clientes.get(poscliente));
                     clientes.get(poscliente).getVehiculos().add(concesionarias.get(op).getVehiculos().get(pos));
                 }
+            }else{
+                System.out.println("Posicion no valida");
             }
         }else{
             System.out.println("Posicion no valida");
@@ -123,9 +131,48 @@ public class Lab3P2_GabrielaMontes {
             System.out.println("Posicion de cliente no valida");
     }
     }
-
+   static void vender (ArrayList<Concesionaria> concesionarias, ArrayList<Cliente> clientes){
+        Scanner entrada = new Scanner(System.in);
+        listarcons(concesionarias);
+        System.out.println("Escriba la posición de la concesionaria que quiere elegir. ");
+         int op = entrada.nextInt();
+         if (op<concesionarias.size()) {
+        System.out.println("Clientes");
+        listarclientes(clientes);
+        System.out.println("Ingrese la posicion del clientes");
+        int poscliente = entrada.nextInt();
+             if (poscliente<clientes.size()) {
+                 for (Object o : clientes.get(poscliente).getVehiculos()) {
+                     System.out.println("" + clientes.get(poscliente).getVehiculos().indexOf(o) + " " + o);
+                 }
+                 System.out.println("Ingrese la posicion del vehiculo que quiere vender ");
+            int pos = entrada.nextInt();
+            if (pos<clientes.get(poscliente).getVehiculos().size()) {
+                if (concesionarias.get(op).getSaldo()>=clientes.get(poscliente).getVehiculos().get(pos).getPrecio()) {
+                    double nsaldo=((concesionarias.get(op).getSaldo())-(clientes.get(poscliente).getVehiculos().get(pos).getPrecio()));
+                    concesionarias.get(op).setSaldo(nsaldo);
+                     double newsaldo=((clientes.get(poscliente).getSaldo())+(clientes.get(poscliente).getVehiculos().get(pos).getPrecio()));
+                    clientes.get(poscliente).setSaldo(newsaldo);
+                     clientes.get(poscliente).getVehiculos().add(concesionarias.get(op).getVehiculos().get(pos));
+                    concesionarias.get(op).getVehiculos().remove(pos);
+                }else{
+                    System.out.println("No ajusta");
+             }
+       }else{
+                System.out.println("Posicion no valida");
+            }
+             }else{
+                 System.out.println("Posicion no valida");
+             }
+         }else{
+             System.out.println("Posicion no valida");
+         }
+   }
+        
+      
+        
     //consecionaria
-    static void concesionaria(ArrayList<Concesionaria> concesionarias) {
+    public static void concesionaria(ArrayList<Concesionaria> concesionarias) {
         Scanner entrada = new Scanner(System.in);
         int op1 = 0;
         while (op1 != 2) {
@@ -172,7 +219,7 @@ public class Lab3P2_GabrielaMontes {
         }
     }
 
-    static void crear(ArrayList<Concesionaria> concesionarias) {
+    public static void crear(ArrayList<Concesionaria> concesionarias) {
         Scanner entrada = new Scanner(System.in);
         int op = 0;
         while (op != 2) {
@@ -193,14 +240,14 @@ public class Lab3P2_GabrielaMontes {
         }
     }
 
-    static void listarcons(ArrayList<Concesionaria> concesionarias) {
+    public static void listarcons(ArrayList<Concesionaria> concesionarias) {
         for (Concesionaria c : concesionarias) {
             System.out.println("" + concesionarias.indexOf(c) + " " + c);
         }
     }
 
     //clientes
-    static void cliente(ArrayList<Cliente> clientes) {
+    public static void cliente(ArrayList<Cliente> clientes) {
         Scanner entrada = new Scanner(System.in);
         int op1 = 0;
         while (op1 != 2) {
@@ -230,7 +277,7 @@ public class Lab3P2_GabrielaMontes {
         }
     }
 
-    static void crearcliente(ArrayList<Cliente> clientes) {
+    public static void crearcliente(ArrayList<Cliente> clientes) {
         Scanner entrada = new Scanner(System.in);
         int op = 0;
         while (op != 2) {
@@ -249,14 +296,14 @@ public class Lab3P2_GabrielaMontes {
         }
     }
 
-    static void listarclientes(ArrayList<Cliente> clientes) {
+    public static void listarclientes(ArrayList<Cliente> clientes) {
         for (Cliente c : clientes) {
             System.out.println("" + clientes.indexOf(c) + " " + c);
         }
     }
 
     //vehiculos
-    static void vehiculo(ArrayList<Vehiculo> vehiculos, ArrayList<Concesionaria> concesionarias) {
+    public static void vehiculo(ArrayList<Vehiculo> vehiculos, ArrayList<Concesionaria> concesionarias) {
         Scanner entrada = new Scanner(System.in);
         int op1 = 0;
         while (op1 != 2) {
@@ -315,7 +362,7 @@ public class Lab3P2_GabrielaMontes {
         }
     }
 
-    static void crearveh(ArrayList<Vehiculo> vehiculos, ArrayList<Concesionaria> concesionarias) {
+    public static void crearveh(ArrayList<Vehiculo> vehiculos, ArrayList<Concesionaria> concesionarias) {
         Scanner entrada = new Scanner(System.in);
         int op = 0;
         while (op != 2) {
@@ -437,13 +484,27 @@ public class Lab3P2_GabrielaMontes {
         }
     }
 
-    static void listarveh(ArrayList<Vehiculo> vehiculos) {
+    public static void listarveh(ArrayList<Vehiculo> vehiculos) {
         for (Vehiculo v : vehiculos) {
-            System.out.println("" + vehiculos.indexOf(v) + " " + v);
+            if (v instanceof Carro) {
+                System.out.println("" + vehiculos.indexOf(v) + " " + v);
+            }
+            if (v instanceof Camion) {
+                System.out.println("" + vehiculos.indexOf(v) + " " + v);
+            }
+            if (v instanceof Bus) {
+                System.out.println("" + vehiculos.indexOf(v) + " " + v);
+            }
+            if (v instanceof Motocicleta) {
+                System.out.println("" + vehiculos.indexOf(v) + " " + v);
+            }
+            if (v instanceof Bicicleta) {
+                System.out.println("" + vehiculos.indexOf(v) + " " + v);
+            }
         }
     }
 
-    static void modificarcarros(ArrayList<Vehiculo> vehiculos) {
+    public static void modificarcarros(ArrayList<Vehiculo> vehiculos) {
         Scanner entrada = new Scanner(System.in);
         System.out.println("--Carro--");
         for (Vehiculo v : vehiculos) {
@@ -476,7 +537,7 @@ public class Lab3P2_GabrielaMontes {
 
     }
 
-    static void modificamiones(ArrayList<Vehiculo> vehiculos) {
+    public static void modificamiones(ArrayList<Vehiculo> vehiculos) {
         Scanner entrada = new Scanner(System.in);
         System.out.println("--Camion--");
         for (Vehiculo v : vehiculos) {
@@ -515,7 +576,7 @@ public class Lab3P2_GabrielaMontes {
 
     }
 
-    static void modificabus(ArrayList<Vehiculo> vehiculos) {
+    public static void modificabus(ArrayList<Vehiculo> vehiculos) {
         Scanner entrada = new Scanner(System.in);
         System.out.println("--Bus--");
         for (Vehiculo v : vehiculos) {
@@ -531,7 +592,7 @@ public class Lab3P2_GabrielaMontes {
 
     }
 
-    static void modificamoto(ArrayList<Vehiculo> vehiculos) {
+    public static void modificamoto(ArrayList<Vehiculo> vehiculos) {
         Scanner entrada = new Scanner(System.in);
         System.out.println("--Motocicleta--");
         for (Vehiculo v : vehiculos) {
@@ -565,7 +626,7 @@ public class Lab3P2_GabrielaMontes {
         }
     }
 
-    static void modificabici(ArrayList<Vehiculo> vehiculos) {
+    public static void modificabici(ArrayList<Vehiculo> vehiculos) {
         Scanner entrada = new Scanner(System.in);
         System.out.println("--Bicicleta--");
         for (Vehiculo v : vehiculos) {
