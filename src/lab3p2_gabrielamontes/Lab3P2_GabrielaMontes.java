@@ -52,9 +52,9 @@ public class Lab3P2_GabrielaMontes {
                     //vehiculos
                     break;
                 case 4:
-                    if (vehiculos.size()>0) {
+                    if (vehiculos.size() > 0) {
                         compraryvender(concesionarias, clientes);
-                    }else{
+                    } else {
                         System.out.println("No esta disponible sin vehiculos");
                     }
                     //compra y venta
@@ -69,8 +69,9 @@ public class Lab3P2_GabrielaMontes {
             op = entrada.nextInt();
         }
     }
+
     //comprar y vender
-   public static void compraryvender(ArrayList<Concesionaria> concesionarias, ArrayList<Cliente> clientes){
+    public static void compraryvender(ArrayList<Concesionaria> concesionarias, ArrayList<Cliente> clientes) {
         Scanner entrada = new Scanner(System.in);
         System.out.println("--menu--");
         System.out.println("1. Comprar");
@@ -87,90 +88,94 @@ public class Lab3P2_GabrielaMontes {
                     vender(concesionarias, clientes);
                     //vender
                     break;
-    }
-             System.out.println("--menu--");
-        System.out.println("1. Comprar");
-        System.out.println("2. Vender");
-        System.out.println("3. Salir");;
-        op = entrada.nextInt();
+            }
+            System.out.println("--menu--");
+            System.out.println("1. Comprar");
+            System.out.println("2. Vender");
+            System.out.println("3. Salir");;
+            op = entrada.nextInt();
         }
     }
-    static void comprar (ArrayList<Concesionaria> concesionarias, ArrayList<Cliente> clientes){
+
+    static void comprar(ArrayList<Concesionaria> concesionarias, ArrayList<Cliente> clientes) {
         Scanner entrada = new Scanner(System.in);
         System.out.println("Clientes");
         listarclientes(clientes);
         System.out.println("Ingrese la posicion del clientes");
         int poscliente = entrada.nextInt();
-        if (poscliente<clientes.size()) {
-        listarcons(concesionarias);
-        System.out.println("Escriba la posición de la concesionaria que quiere elegir. ");
-         int op = entrada.nextInt();
-        if (op<concesionarias.size()) {
-            for (Object o : concesionarias.get(op).getVehiculos()) {
-                System.out.println("" + concesionarias.get(op).getVehiculos().indexOf(o) + " " + o);
-            }
-            System.out.println("Ingrese la posicion del vehiculo que quiere comprar ");
-            int pos = entrada.nextInt();
-            if (pos<concesionarias.get(op).getVehiculos().size()) {
-                if (clientes.get(poscliente).getSaldo()>=concesionarias.get(op).getVehiculos().get(pos).getPrecio()) {
-                    double nsaldo=((clientes.get(poscliente).getSaldo())-(concesionarias.get(op).getVehiculos().get(pos).getPrecio()));
-                    clientes.get(poscliente).setSaldo(nsaldo);
-                    double ncons=((concesionarias.get(op).getVehiculos().get(pos).getPrecio())*0.075);
-                    double nsaldocons=concesionarias.get(op).getSaldo()+ncons;
-                    concesionarias.get(op).setSaldo(nsaldocons);
-                    concesionarias.get(op).getClientes().add(clientes.get(poscliente));
-                    clientes.get(poscliente).getVehiculos().add(concesionarias.get(op).getVehiculos().get(pos));
+        if (poscliente < clientes.size()) {
+            listarcons(concesionarias);
+            System.out.println("Escriba la posición de la concesionaria que quiere elegir. ");
+            int op = entrada.nextInt();
+            if (op < concesionarias.size()) {
+                for (Object o : concesionarias.get(op).getVehiculos()) {
+                    System.out.println("" + concesionarias.get(op).getVehiculos().indexOf(o) + " " + o);
                 }
-            }else{
+                System.out.println("Ingrese la posicion del vehiculo que quiere comprar ");
+                int pos = entrada.nextInt();
+                if (pos < concesionarias.get(op).getVehiculos().size()) {
+                    if (clientes.get(poscliente).getSaldo() >= concesionarias.get(op).getVehiculos().get(pos).getPrecio()) {
+                        double nsaldo = ((clientes.get(poscliente).getSaldo()) - (concesionarias.get(op).getVehiculos().get(pos).getPrecio()));
+                        System.out.println("Nuevo saldo del cliente: " + nsaldo);
+                        clientes.get(poscliente).setSaldo(nsaldo);
+                        double ncons = ((concesionarias.get(op).getVehiculos().get(pos).getPrecio()) * 0.075);
+                        double nsaldocons = concesionarias.get(op).getSaldo() + ncons;
+                        System.out.println("Nuevo saldo concesionaria " + nsaldocons);
+                        concesionarias.get(op).setSaldo(nsaldocons);
+                        concesionarias.get(op).getClientes().add(clientes.get(poscliente));
+                        clientes.get(poscliente).getVehiculos().add(concesionarias.get(op).getVehiculos().get(pos));
+                    }
+                } else {
+                    System.out.println("Posicion no valida");
+                }
+            } else {
                 System.out.println("Posicion no valida");
             }
-        }else{
+        } else {
+            System.out.println("Posicion de cliente no valida");
+        }
+    }
+
+    static void vender(ArrayList<Concesionaria> concesionarias, ArrayList<Cliente> clientes) {
+        Scanner entrada = new Scanner(System.in);
+        listarcons(concesionarias);
+        System.out.println("Escriba la posición de la concesionaria que quiere elegir. ");
+        int op = entrada.nextInt();
+        if (op < concesionarias.size()) {
+            System.out.println("Clientes");
+            listarclientes(clientes);
+            System.out.println("Ingrese la posicion del clientes");
+            int poscliente = entrada.nextInt();
+            if (poscliente < clientes.size()) {
+                for (Object o : clientes.get(poscliente).getVehiculos()) {
+                    System.out.println("" + clientes.get(poscliente).getVehiculos().indexOf(o) + " " + o);
+                }
+                System.out.println("Ingrese la posicion del vehiculo que quiere vender ");
+                int pos = entrada.nextInt();
+                if (pos < clientes.get(poscliente).getVehiculos().size()) {
+                    if (concesionarias.get(op).getSaldo() >= clientes.get(poscliente).getVehiculos().get(pos).getPrecio()) {
+                        double nsaldo = ((concesionarias.get(op).getSaldo()) - (clientes.get(poscliente).getVehiculos().get(pos).getPrecio()));
+                        System.out.println("Nuevo saldo concesionaria: " + nsaldo);
+                        concesionarias.get(op).setSaldo(nsaldo);
+                        double newsaldo = ((clientes.get(poscliente).getSaldo()) + (clientes.get(poscliente).getVehiculos().get(pos).getPrecio()));
+                        System.out.println("Nuevo saldo cliente: " + newsaldo);
+                        clientes.get(poscliente).setSaldo(newsaldo);
+                        clientes.get(poscliente).getVehiculos().add(concesionarias.get(op).getVehiculos().get(pos));
+                        concesionarias.get(op).getVehiculos().remove(pos);
+                    } else {
+                        System.out.println("No ajusta");
+                    }
+                } else {
+                    System.out.println("Posicion no valida");
+                }
+            } else {
+                System.out.println("Posicion no valida");
+            }
+        } else {
             System.out.println("Posicion no valida");
         }
-        }else{
-            System.out.println("Posicion de cliente no valida");
     }
-    }
-   static void vender (ArrayList<Concesionaria> concesionarias, ArrayList<Cliente> clientes){
-        Scanner entrada = new Scanner(System.in);
-        listarcons(concesionarias);
-        System.out.println("Escriba la posición de la concesionaria que quiere elegir. ");
-         int op = entrada.nextInt();
-         if (op<concesionarias.size()) {
-        System.out.println("Clientes");
-        listarclientes(clientes);
-        System.out.println("Ingrese la posicion del clientes");
-        int poscliente = entrada.nextInt();
-             if (poscliente<clientes.size()) {
-                 for (Object o : clientes.get(poscliente).getVehiculos()) {
-                     System.out.println("" + clientes.get(poscliente).getVehiculos().indexOf(o) + " " + o);
-                 }
-                 System.out.println("Ingrese la posicion del vehiculo que quiere vender ");
-            int pos = entrada.nextInt();
-            if (pos<clientes.get(poscliente).getVehiculos().size()) {
-                if (concesionarias.get(op).getSaldo()>=clientes.get(poscliente).getVehiculos().get(pos).getPrecio()) {
-                    double nsaldo=((concesionarias.get(op).getSaldo())-(clientes.get(poscliente).getVehiculos().get(pos).getPrecio()));
-                    concesionarias.get(op).setSaldo(nsaldo);
-                     double newsaldo=((clientes.get(poscliente).getSaldo())+(clientes.get(poscliente).getVehiculos().get(pos).getPrecio()));
-                    clientes.get(poscliente).setSaldo(newsaldo);
-                     clientes.get(poscliente).getVehiculos().add(concesionarias.get(op).getVehiculos().get(pos));
-                    concesionarias.get(op).getVehiculos().remove(pos);
-                }else{
-                    System.out.println("No ajusta");
-             }
-       }else{
-                System.out.println("Posicion no valida");
-            }
-             }else{
-                 System.out.println("Posicion no valida");
-             }
-         }else{
-             System.out.println("Posicion no valida");
-         }
-   }
-        
-      
-        
+
     //consecionaria
     public static void concesionaria(ArrayList<Concesionaria> concesionarias) {
         Scanner entrada = new Scanner(System.in);
@@ -194,10 +199,13 @@ public class Lab3P2_GabrielaMontes {
                         listarcons(concesionarias);
                         System.out.println("Ingrese la posicion que quiere modificar:");
                         int pos = entrada.nextInt();
+                        entrada = new Scanner(System.in);
                         System.out.println("Solo se puede modificar la direccion");
                         System.out.println("Ingrese la nueva direccion : ");
                         String direccion = entrada.nextLine();
                         concesionarias.get(pos).setDireccion(direccion);
+                        System.out.println("Dirreccion modificada");
+                        listarcons(concesionarias);
 
                     }
                     //modificar
@@ -209,6 +217,8 @@ public class Lab3P2_GabrielaMontes {
                     System.out.println("Que posicion desea eliminar");
                     int remove = entrada.nextInt();
                     concesionarias.remove(remove);
+                    System.out.println("Concesionaria elimnada");
+                    listarcons(concesionarias);
                     //eliminar
                     break;
             }
@@ -258,6 +268,8 @@ public class Lab3P2_GabrielaMontes {
             switch (op) {
                 case 1:
                     crearcliente(clientes);
+                    System.out.println("Nueva lista:");
+                    listarclientes(clientes);
                     //crear
                     break;
                 case 2:
@@ -267,11 +279,14 @@ public class Lab3P2_GabrielaMontes {
                     System.out.println("Que posicion desea eliminar");
                     int remove = entrada.nextInt();
                     clientes.remove(remove);
+                    System.out.println("Cliente eliminado");
+                    System.out.println("Nueva lista");
+                    listarclientes(clientes);
                     //eliminar
                     break;
             }
             System.out.println("--menu--");
-            System.out.println("1. CRUD Concesionaria");
+            System.out.println("1. CRUD Cliente");
             System.out.println("2. Salir");
             op1 = entrada.nextInt();
         }
@@ -335,7 +350,7 @@ public class Lab3P2_GabrielaMontes {
                                 modificabus(vehiculos);
                                 break;
                             case 4:
-                                 modificamoto(vehiculos);
+                                modificamoto(vehiculos);
                                 break;
                             case 5:
                                 modificabici(vehiculos);
@@ -373,7 +388,7 @@ public class Lab3P2_GabrielaMontes {
             String mar = entrada.nextLine();
             System.out.println("Ingrese el modelo: ");
             String mod = entrada.nextLine();
-            System.out.println("Ingrese el año: ");
+            System.out.println("Ingrese el anio: ");
             int año = entrada.nextInt();
             System.out.println("Ingrese el precio: ");
             double precio = entrada.nextDouble();
@@ -389,6 +404,7 @@ public class Lab3P2_GabrielaMontes {
                 int op1 = entrada.nextInt();
                 switch (op1) {
                     case 1:
+                        entrada = new Scanner(System.in);
                         System.out.println("Ingrese el desplazamiento del motor:");
                         String dez = entrada.nextLine();
                         System.out.println("Es electrica: 1. si, 2. no");
@@ -400,6 +416,7 @@ public class Lab3P2_GabrielaMontes {
                             e = false;
                         }
                         Motocicleta m = new Motocicleta(dez, e, col, mar, mod, año, precio, cantidadll);
+                        vehiculos.add(m);
                         listarcons(concesionarias);
                         System.out.println("Ingrese la posicion de la concesionaria a la cual va a agregar el vehiculo: ");
                         int consmot = entrada.nextInt();
@@ -407,6 +424,7 @@ public class Lab3P2_GabrielaMontes {
                         break;
 
                     case 2:
+                        entrada = new Scanner(System.in);
                         System.out.println("Ingrese la descripcion:");
                         String des = entrada.nextLine();
                         System.out.println("Ingrese el radio: ");
@@ -420,6 +438,7 @@ public class Lab3P2_GabrielaMontes {
                             tipo = "de calle";
                         }
                         Bicicleta b = new Bicicleta(des, rad, tipo, col, mar, mod, año, precio, cantidadll);
+                        vehiculos.add(b);
                         listarcons(concesionarias);
                         System.out.println("Ingrese la posicion de la concesionaria a la cual va a agregar el vehiculo: ");
                         int consbic = entrada.nextInt();
@@ -431,6 +450,7 @@ public class Lab3P2_GabrielaMontes {
                 int op3 = entrada.nextInt();
                 switch (op3) {
                     case 1:
+                        entrada = new Scanner(System.in);
                         System.out.println("--Carro--");
                         System.out.println("Ingrese la descripcion del motor:");
                         String motor = entrada.nextLine();
@@ -439,6 +459,7 @@ public class Lab3P2_GabrielaMontes {
                         System.out.println("Ingrese la velocidad maxima : ");
                         int vel = entrada.nextInt();
                         Carro car = new Carro(puer, motor, vel, col, mar, mod, año, precio, cantidadll);
+                        vehiculos.add(car);
                         listarcons(concesionarias);
                         System.out.println("Ingrese la posicion de la concesionaria a la cual va a agregar el vehiculo: ");
                         int conscar = entrada.nextInt();
@@ -459,6 +480,7 @@ public class Lab3P2_GabrielaMontes {
                             r = false;
                         }
                         Camion cam = new Camion(vol, alt, r, col, mar, mod, año, precio, cantidadll);
+                        vehiculos.add(cam);
                         listarcons(concesionarias);
                         System.out.println("Ingrese la posicion de la concesionaria a la cual va a agregar el vehiculo: ");
                         int conscam = entrada.nextInt();
@@ -468,19 +490,20 @@ public class Lab3P2_GabrielaMontes {
                         System.out.println("--Bus--");
                         System.out.println("Ingrese la cantidad de pasajeros:");
                         int cantpas = entrada.nextInt();
-                        Bus b = new Bus(cantpas, col, mar, mod, año, precio, cantidadll);
+                        Bus bus = new Bus(cantpas, col, mar, mod, año, precio, cantidadll);
+                        vehiculos.add(bus);
                         listarcons(concesionarias);
                         System.out.println("Ingrese la posicion de la concesionaria a la cual va a agregar el vehiculo: ");
                         int consbus = entrada.nextInt();
-                        concesionarias.get(consbus).getVehiculos().add(b);
+                        concesionarias.get(consbus).getVehiculos().add(bus);
                         break;
                 }
-
-                System.out.println("--menu--");
-                System.out.println("1. Crear");
-                System.out.println("2. Salir");
-                op = entrada.nextInt();
             }
+
+            System.out.println("--menu--");
+            System.out.println("1. Crear");
+            System.out.println("2. Salir");
+            op = entrada.nextInt();
         }
     }
 
@@ -534,6 +557,14 @@ public class Lab3P2_GabrielaMontes {
                 ((Carro) vehiculos.get(pos)).setVelocidad(vel);
                 break;
         }
+        for (Vehiculo v : vehiculos) {
+            System.out.println("Modificacion realizada: ");
+            if (v instanceof Carro) {
+                if (vehiculos.indexOf(v) == pos) {
+                    System.out.println("" + vehiculos.indexOf(v) + " " + v);
+                }
+            }
+        }
 
     }
 
@@ -573,6 +604,14 @@ public class Lab3P2_GabrielaMontes {
                 ((Camion) vehiculos.get(pos)).setRetroexcavadora(r);
                 break;
         }
+        System.out.println("Modificacion creada: ");
+         for (Vehiculo v : vehiculos) {
+            if (v instanceof Camion) {
+                if (vehiculos.indexOf(v)==pos) {
+                  System.out.println("" + vehiculos.indexOf(v) + " " + v);   
+                }
+            }
+        }
 
     }
 
@@ -589,7 +628,14 @@ public class Lab3P2_GabrielaMontes {
         System.out.println("Ingrese la cantidad de pasajeros:");
         int cantpas = entrada.nextInt();
         ((Bus) vehiculos.get(pos)).setPasajeros(pos);
-
+        System.out.println("Modificacion creada: ");
+          for (Vehiculo v : vehiculos) {
+            if (v instanceof Bus) {
+                if (vehiculos.indexOf(v)==pos) {
+                  System.out.println("" + vehiculos.indexOf(v) + " " + v);   
+                }
+            }
+        }
     }
 
     public static void modificamoto(ArrayList<Vehiculo> vehiculos) {
@@ -624,6 +670,14 @@ public class Lab3P2_GabrielaMontes {
                 break;
 
         }
+          System.out.println("Modificacion creada: ");
+          for (Vehiculo v : vehiculos) {
+            if (v instanceof Motocicleta) {
+                if (vehiculos.indexOf(v)==pos) {
+                  System.out.println("" + vehiculos.indexOf(v) + " " + v);   
+                }
+            }
+        }
     }
 
     public static void modificabici(ArrayList<Vehiculo> vehiculos) {
@@ -651,7 +705,7 @@ public class Lab3P2_GabrielaMontes {
                 ((Bicicleta) vehiculos.get(pos)).setRadio(rad);
                 break;
             case 3:
-               entrada = new Scanner(System.in);
+                entrada = new Scanner(System.in);
                 System.out.println("Tipo: 1. BMX 2. de calle");
                 int tip = entrada.nextInt();
                 String tipo = "";
@@ -660,11 +714,17 @@ public class Lab3P2_GabrielaMontes {
                 } else {
                     tipo = "de calle";
                 }
-                 ((Bicicleta) vehiculos.get(pos)).setTipo(tipo);
+                ((Bicicleta) vehiculos.get(pos)).setTipo(tipo);
 
+        }
+         for (Vehiculo v : vehiculos) {
+            if (v instanceof Bicicleta) {
+                if (vehiculos.indexOf(v)==pos) {
+                  System.out.println("" + vehiculos.indexOf(v) + " " + v);   
+                }
+            }
         }
 
     }
-
 
 }
