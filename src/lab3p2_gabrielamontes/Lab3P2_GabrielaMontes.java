@@ -64,6 +64,65 @@ public class Lab3P2_GabrielaMontes {
             op = entrada.nextInt();
         }
     }
+    //comprar y vender
+    static void compraryvender(){
+        Scanner entrada = new Scanner(System.in);
+        System.out.println("--menu--");
+        System.out.println("1. Comprar");
+        System.out.println("2. Vender");
+        System.out.println("3. Salir");;
+        int op = entrada.nextInt();
+        while (op != 3) {
+            switch (op) {
+                case 1:
+                    
+                    //comprar
+                    break;
+                case 2:
+                    //vender
+                    break;
+    }
+             System.out.println("--menu--");
+        System.out.println("1. Comprar");
+        System.out.println("2. Vender");
+        System.out.println("3. Salir");;
+        op = entrada.nextInt();
+        }
+    }
+    static void comprar (ArrayList<Concesionaria> concesionarias, ArrayList<Cliente> clientes){
+        Scanner entrada = new Scanner(System.in);
+        System.out.println("Clientes");
+        listarclientes(clientes);
+        System.out.println("Ingrese la posicion del clientes");
+        int poscliente = entrada.nextInt();
+        if (poscliente<clientes.size()) {
+        listarcons(concesionarias);
+        System.out.println("Escriba la posición de la concesionaria que quiere elegir. ");
+         int op = entrada.nextInt();
+        if (op<concesionarias.size()) {
+            for (Object o : concesionarias.get(op).getVehiculos()) {
+                System.out.println("" + concesionarias.get(op).getVehiculos().indexOf(o) + " " + o);
+            }
+            System.out.println("Ingrese la posicion del vehiculo que quiere comprar ");
+            int pos = entrada.nextInt();
+            if (pos<concesionarias.get(op).getVehiculos().size()) {
+                if (clientes.get(poscliente).getSaldo()>=concesionarias.get(op).getVehiculos().get(pos).getPrecio()) {
+                    double nsaldo=((clientes.get(poscliente).getSaldo())-(concesionarias.get(op).getVehiculos().get(pos).getPrecio()));
+                    clientes.get(poscliente).setSaldo(nsaldo);
+                    double ncons=nsaldo*0.075;
+                    double nsaldocons=concesionarias.get(op).getSaldo()+ncons;
+                    concesionarias.get(op).setSaldo(nsaldocons);
+                    concesionarias.get(op).getClientes().add(clientes.get(poscliente));
+                    clientes.get(poscliente).getVehiculos().add(concesionarias.get(op).getVehiculos().get(pos));
+                }
+            }
+        }else{
+            System.out.println("Posicion no valida");
+        }
+        }else{
+            System.out.println("Posicion de cliente no valida");
+    }
+    }
 
     //consecionaria
     static void concesionaria(ArrayList<Concesionaria> concesionarias) {
@@ -545,5 +604,6 @@ public class Lab3P2_GabrielaMontes {
         }
 
     }
+
 
 }
