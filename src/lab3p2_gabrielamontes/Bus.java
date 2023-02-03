@@ -18,7 +18,7 @@ public class Bus extends Vehiculo{
         super();
     }
 
-    public Bus(int pasajeros, Color color, String marca, String modelo, int anio, double precio, int llantas) {
+    public Bus(int pasajeros, String color, String marca, String modelo, int anio, double precio, int llantas) {
         super(color, marca, modelo, anio, precio, llantas);
         this.pasajeros = pasajeros;
         if (pasajeros>50){

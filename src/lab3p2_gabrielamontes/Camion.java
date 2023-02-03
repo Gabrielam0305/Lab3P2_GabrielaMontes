@@ -19,7 +19,7 @@ public class Camion extends Vehiculo{
         super();
     }
 
-    public Camion(int carga, int altura, boolean retroexcavadora, Color color, String marca, String modelo, int anio, double precio, int llantas) {
+    public Camion(int carga, int altura, boolean retroexcavadora, String color, String marca, String modelo, int anio, double precio, int llantas) {
         super(color, marca, modelo, anio, precio, llantas);
         this.carga = carga;
         this.altura = altura;

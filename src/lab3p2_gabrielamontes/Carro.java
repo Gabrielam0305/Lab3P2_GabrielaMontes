@@ -19,7 +19,7 @@ public class Carro extends Vehiculo {
         super();
     }
 
-    public Carro(int puertas, String motor, int velocidad, Color color, String marca, String modelo, int anio, double precio, int llantas) {
+    public Carro(int puertas, String motor, int velocidad, String color, String marca, String modelo, int anio, double precio, int llantas) {
         super(color, marca, modelo, anio, precio, llantas);
         this.puertas = puertas;
         this.motor = motor;
