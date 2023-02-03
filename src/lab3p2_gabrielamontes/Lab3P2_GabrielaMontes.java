@@ -208,31 +208,31 @@ public class Lab3P2_GabrielaMontes {
             int op = entrada.nextInt();
             switch (op) {
                 case 1:
-                    crear(concesionarias);
+                    crearveh(vehiculos, concesionarias);
                     //crear
                     break;
                 case 2:
                     entrada = new Scanner(System.in);
-                    if (concesionarias.size() < 1) {
-                        System.out.println("No hay concesionarias para modificar");
+                    if (vehiculos.size() < 1) {
+                        System.out.println("No hay vehiculos para modificar");
                     } else {
-                        listarcons(concesionarias);
-                        System.out.println("Ingrese la posicion que quiere modificar:");
-                        int pos = entrada.nextInt();
-                        System.out.println("Que desea modificar: ");
-                        System.out.println("1. Saldo: ");
-                        System.out.println("2. Direccion: ");
+                        listarveh(vehiculos);
+                        System.out.println("Que desea modificar: 1. Carros, 2. Camiones, 3. Buses, 4. Motocicletas, 5. Bicicletas ");
                         int modop = entrada.nextInt();
                         switch (modop) {
                             case 1:
-                                System.out.println("Ingrese el nuevo saldo: ");
-                                double sal = entrada.nextInt();
-                                concesionarias.get(pos).setSaldo(sal);
-                                break;
+                                modificarcarros(vehiculos);
                             case 2:
-                                System.out.println("Ingrese la nueva direccion : ");
-                                String direccion = entrada.nextLine();
-                                concesionarias.get(pos).setDireccion(direccion);
+                                modificamiones(vehiculos);
+                                break;
+                            case 3:
+                                modificabus(vehiculos);
+                                break;
+                            case 4:
+                                 modificamoto(vehiculos);
+                                break;
+                            case 5:
+                                modificabici(vehiculos);
                                 break;
                         }
 
@@ -242,15 +242,15 @@ public class Lab3P2_GabrielaMontes {
                 case 3:
                     entrada = new Scanner(System.in);
                     //listar
-                    listarcons(concesionarias);
+                    listarveh(vehiculos);
                     System.out.println("Que posicion desea eliminar");
                     int remove = entrada.nextInt();
-                    concesionarias.remove(remove);
+                    vehiculos.remove(remove);
                     //eliminar
                     break;
             }
             System.out.println("--menu--");
-            System.out.println("1. CRUD Concesionaria");
+            System.out.println("1. CRUD Vehiculo");
             System.out.println("2. Salir");
             op1 = entrada.nextInt();
         }
@@ -332,18 +332,18 @@ public class Lab3P2_GabrielaMontes {
                         int puer = entrada.nextInt();
                         System.out.println("Ingrese la velocidad maxima : ");
                         int vel = entrada.nextInt();
-                        Carro car=new Carro(puer, motor, vel, col, mar, mod, año, precio, cantidadll);
-                         listarcons(concesionarias);
+                        Carro car = new Carro(puer, motor, vel, col, mar, mod, año, precio, cantidadll);
+                        listarcons(concesionarias);
                         System.out.println("Ingrese la posicion de la concesionaria a la cual va a agregar el vehiculo: ");
-                        int conscar=entrada.nextInt();
+                        int conscar = entrada.nextInt();
                         concesionarias.get(conscar).getVehiculos().add(car);
                         break;
                     case 2:
                         System.out.println("--Camion--");
-                       System.out.println("Ingrese el volumen maximo de carga:");
-                       int vol=entrada.nextInt();
-                       System.out.println("Ingrese la altura:");
-                       int alt=entrada.nextInt();
+                        System.out.println("Ingrese el volumen maximo de carga:");
+                        int vol = entrada.nextInt();
+                        System.out.println("Ingrese la altura:");
+                        int alt = entrada.nextInt();
                         System.out.println("Tiene retroexcavadora: 1. si, 2. no");
                         int re = entrada.nextInt();
                         boolean r;
@@ -352,24 +352,24 @@ public class Lab3P2_GabrielaMontes {
                         } else {
                             r = false;
                         }
-                        Camion cam=new Camion(vol, alt, r, col, mar, mod, año, precio, cantidadll);
-                         listarcons(concesionarias);
-                         System.out.println("Ingrese la posicion de la concesionaria a la cual va a agregar el vehiculo: ");
-                        int conscam=entrada.nextInt();
+                        Camion cam = new Camion(vol, alt, r, col, mar, mod, año, precio, cantidadll);
+                        listarcons(concesionarias);
+                        System.out.println("Ingrese la posicion de la concesionaria a la cual va a agregar el vehiculo: ");
+                        int conscam = entrada.nextInt();
                         concesionarias.get(conscam).getVehiculos().add(cam);
                         break;
-                        case 3:
+                    case 3:
                         System.out.println("--Bus--");
-                       System.out.println("Ingrese la cantidad de pasajeros:");
-                       int cantpas=entrada.nextInt();
-                       Bus b=new Bus(cantpas, col, mar, mod, año, precio, cantidadll);
+                        System.out.println("Ingrese la cantidad de pasajeros:");
+                        int cantpas = entrada.nextInt();
+                        Bus b = new Bus(cantpas, col, mar, mod, año, precio, cantidadll);
                         listarcons(concesionarias);
-                         System.out.println("Ingrese la posicion de la concesionaria a la cual va a agregar el vehiculo: ");
-                        int consbus=entrada.nextInt();
+                        System.out.println("Ingrese la posicion de la concesionaria a la cual va a agregar el vehiculo: ");
+                        int consbus = entrada.nextInt();
                         concesionarias.get(consbus).getVehiculos().add(b);
                         break;
                 }
-                
+
                 System.out.println("--menu--");
                 System.out.println("1. Crear");
                 System.out.println("2. Salir");
@@ -378,11 +378,172 @@ public class Lab3P2_GabrielaMontes {
         }
     }
 
-    
-
     static void listarveh(ArrayList<Vehiculo> vehiculos) {
         for (Vehiculo v : vehiculos) {
             System.out.println("" + vehiculos.indexOf(v) + " " + v);
         }
     }
+
+    static void modificarcarros(ArrayList<Vehiculo> vehiculos) {
+        Scanner entrada = new Scanner(System.in);
+        System.out.println("--Carro--");
+        for (Vehiculo v : vehiculos) {
+            if (v instanceof Carro) {
+                System.out.println("" + vehiculos.indexOf(v) + " " + v);
+            }
+        }
+        System.out.println("Ingrese la posicion que quiere modificar:");
+        int pos = entrada.nextInt();
+        System.out.println("Que desea modificar 1. descripcion del motor, 2. cantidad de puertas,3. velocidad maxima");
+        int op = entrada.nextInt();
+        switch (op) {
+            case 1:
+                System.out.println("Ingrese la nueva descripcion del motor:");
+                String motor = entrada.nextLine();
+                ((Carro) vehiculos.get(pos)).setMotor(motor);
+                break;
+
+            case 2:
+                System.out.println("Ingrese la cantidad de puertas: ");
+                int puer = entrada.nextInt();
+                ((Carro) vehiculos.get(pos)).setPuertas(puer);
+                break;
+            case 3:
+                System.out.println("Ingrese la velocidad maxima : ");
+                int vel = entrada.nextInt();
+                ((Carro) vehiculos.get(pos)).setVelocidad(vel);
+                break;
+        }
+
+    }
+
+    static void modificamiones(ArrayList<Vehiculo> vehiculos) {
+        Scanner entrada = new Scanner(System.in);
+        System.out.println("--Camion--");
+        for (Vehiculo v : vehiculos) {
+            if (v instanceof Camion) {
+                System.out.println("" + vehiculos.indexOf(v) + " " + v);
+            }
+        }
+        System.out.println("Ingrese la posicion que quiere modificar:");
+        int pos = entrada.nextInt();
+        System.out.println("Que desea modificar 1. volumen de carga, 2. Altura ,3. Retroexcavadora ");
+        int op = entrada.nextInt();
+        switch (op) {
+            case 1:
+                System.out.println("Ingrese el volumen maximo de carga:");
+                int vol = entrada.nextInt();
+                ((Camion) vehiculos.get(pos)).setCarga(vol);
+                break;
+
+            case 2:
+                System.out.println("Ingrese la altura:");
+                int alt = entrada.nextInt();
+                ((Camion) vehiculos.get(pos)).setAltura(alt);
+                break;
+            case 3:
+                System.out.println("Tiene retroexcavadora: 1. si, 2. no");
+                int re = entrada.nextInt();
+                boolean r;
+                if (re == 1) {
+                    r = true;
+                } else {
+                    r = false;
+                }
+                ((Camion) vehiculos.get(pos)).setRetroexcavadora(r);
+                break;
+        }
+
+    }
+
+    static void modificabus(ArrayList<Vehiculo> vehiculos) {
+        Scanner entrada = new Scanner(System.in);
+        System.out.println("--Bus--");
+        for (Vehiculo v : vehiculos) {
+            if (v instanceof Bus) {
+                System.out.println("" + vehiculos.indexOf(v) + " " + v);
+            }
+        }
+        System.out.println("Ingrese la posicion que quiere modificar:");
+        int pos = entrada.nextInt();
+        System.out.println("Ingrese la cantidad de pasajeros:");
+        int cantpas = entrada.nextInt();
+        ((Bus) vehiculos.get(pos)).setPasajeros(pos);
+
+    }
+
+    static void modificamoto(ArrayList<Vehiculo> vehiculos) {
+        Scanner entrada = new Scanner(System.in);
+        System.out.println("--Motocicleta--");
+        for (Vehiculo v : vehiculos) {
+            if (v instanceof Motocicleta) {
+                System.out.println("" + vehiculos.indexOf(v) + " " + v);
+            }
+        }
+        System.out.println("Ingrese la posicion que quiere modificar:");
+        int pos = entrada.nextInt();
+        System.out.println("Que desea modificar: 1. Desplazamiento del motor, 2. Es electrica o no");
+        int op = entrada.nextInt();
+        switch (op) {
+            case 1:
+                System.out.println("Ingrese el desplazamiento del motor:");
+                String dez = entrada.nextLine();
+                ((Motocicleta) vehiculos.get(pos)).setDesplazamientomotor(dez);
+                break;
+
+            case 2:
+                System.out.println("Es electrica: 1. si, 2. no");
+                int el = entrada.nextInt();
+                boolean e;
+                if (el == 1) {
+                    e = true;
+                } else {
+                    e = false;
+                }
+                ((Motocicleta) vehiculos.get(pos)).setElectrica(e);
+                break;
+
+        }
+    }
+
+    static void modificabici(ArrayList<Vehiculo> vehiculos) {
+        Scanner entrada = new Scanner(System.in);
+        System.out.println("--Bicicleta--");
+        for (Vehiculo v : vehiculos) {
+            if (v instanceof Bicicleta) {
+                System.out.println("" + vehiculos.indexOf(v) + " " + v);
+            }
+        }
+        System.out.println("Ingrese la posicion que quiere modificar:");
+        int pos = entrada.nextInt();
+        System.out.println("Que desea modificar: 1.Descripcion, 2. Radio, 3. Tipo");
+        int op = entrada.nextInt();
+        switch (op) {
+            case 1:
+                System.out.println("Ingrese la descripcion:");
+                String des = entrada.nextLine();
+                ((Bicicleta) vehiculos.get(pos)).setDescripcion(des);
+                break;
+
+            case 2:
+                System.out.println("Ingrese el radio: ");
+                int rad = entrada.nextInt();
+                ((Bicicleta) vehiculos.get(pos)).setRadio(rad);
+                break;
+            case 3:
+               entrada = new Scanner(System.in);
+                System.out.println("Tipo: 1. BMX 2. de calle");
+                int tip = entrada.nextInt();
+                String tipo = "";
+                if (tip == 1) {
+                    tipo = "BMX";
+                } else {
+                    tipo = "de calle";
+                }
+                 ((Bicicleta) vehiculos.get(pos)).setTipo(tipo);
+
+        }
+
+    }
+
 }
