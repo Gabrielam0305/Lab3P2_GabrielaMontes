@@ -17,11 +17,14 @@ public class Bicicleta extends Vehiculo{
         super();
     }
 
-    public Bicicleta(String descripcion, int radio, String tipo) {
+    public Bicicleta(String descripcion, int radio, String tipo, String color, String marca, String modelo, int anio, double precio, int llantas) {
+        super(color, marca, modelo, anio, precio, llantas);
         this.descripcion = descripcion;
         this.radio = radio;
         this.tipo = tipo;
     }
+
+   
 
     public String getDescripcion() {
         return descripcion;
