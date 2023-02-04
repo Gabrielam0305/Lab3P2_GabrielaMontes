@@ -165,9 +165,8 @@ public class Lab3P2_GabrielaMontes {
                         double newsaldo = ((clientes.get(poscliente).getSaldo()) + (clientes.get(poscliente).getVehiculos().get(pos).getPrecio()));
                         System.out.println("Nuevo saldo cliente: " + newsaldo);
                         clientes.get(poscliente).setSaldo(newsaldo);
-                        System.out.println(concesionarias.get(op).getVehiculos().size()+"->   tamanio getVehiculos");
-                        clientes.get(poscliente).getVehiculos().add(concesionarias.get(op).getVehiculos().get(pos));
-                        concesionarias.get(op).getVehiculos().remove(pos);
+                        concesionarias.get(op).getVehiculos().add(clientes.get(poscliente).getVehiculos().get(pos));
+                        clientes.get(poscliente).getVehiculos().remove(pos);
                     } else {
                         System.out.println("No ajusta");
                     }
