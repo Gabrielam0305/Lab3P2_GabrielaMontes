@@ -49,5 +49,11 @@ public class Camion extends Vehiculo{
     public void setRetroexcavadora(boolean retroexcavadora) {
         this.retroexcavadora = retroexcavadora;
     }
+
+    @Override
+    public String toString() {
+        return "Camion{" + super.toString()+ "carga=" + carga + ", altura=" + altura + ", retroexcavadora=" + retroexcavadora + '}';
+    }
+    
     
 }

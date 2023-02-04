@@ -115,15 +115,20 @@ public class Lab3P2_GabrielaMontes {
                 int pos = entrada.nextInt();
                 if (pos < concesionarias.get(op).getVehiculos().size()) {
                     if (clientes.get(poscliente).getSaldo() >= concesionarias.get(op).getVehiculos().get(pos).getPrecio()) {
-                        double nsaldo = ((clientes.get(poscliente).getSaldo()) - (concesionarias.get(op).getVehiculos().get(pos).getPrecio()));
+                        double in=(((concesionarias.get(op).getVehiculos().get(pos).getPrecio())*0.075)+(concesionarias.get(op).getVehiculos().get(pos).getPrecio()));
+                        System.out.println("Precio del vehiculo: "+in);
+                        double nsaldo = ((clientes.get(poscliente).getSaldo()) -in );
                         System.out.println("Nuevo saldo del cliente: " + nsaldo);
                         clientes.get(poscliente).setSaldo(nsaldo);
-                        double ncons = ((concesionarias.get(op).getVehiculos().get(pos).getPrecio()) * 0.075);
-                        double nsaldocons = concesionarias.get(op).getSaldo() + ncons;
+                        double nsaldocons = concesionarias.get(op).getSaldo() + in;
                         System.out.println("Nuevo saldo concesionaria " + nsaldocons);
                         concesionarias.get(op).setSaldo(nsaldocons);
                         concesionarias.get(op).getClientes().add(clientes.get(poscliente));
                         clientes.get(poscliente).getVehiculos().add(concesionarias.get(op).getVehiculos().get(pos));
+                        concesionarias.get(op).getVehiculos().remove(pos);
+                        
+                    }else{
+                        System.out.println("No tiene suficiente dinero para comprar este vehiculo");
                     }
                 } else {
                     System.out.println("Posicion no valida");
@@ -160,6 +165,7 @@ public class Lab3P2_GabrielaMontes {
                         double newsaldo = ((clientes.get(poscliente).getSaldo()) + (clientes.get(poscliente).getVehiculos().get(pos).getPrecio()));
                         System.out.println("Nuevo saldo cliente: " + newsaldo);
                         clientes.get(poscliente).setSaldo(newsaldo);
+                        System.out.println(concesionarias.get(op).getVehiculos().size()+"->   tamanio getVehiculos");
                         clientes.get(poscliente).getVehiculos().add(concesionarias.get(op).getVehiculos().get(pos));
                         concesionarias.get(op).getVehiculos().remove(pos);
                     } else {
@@ -268,8 +274,6 @@ public class Lab3P2_GabrielaMontes {
             switch (op) {
                 case 1:
                     crearcliente(clientes);
-                    System.out.println("Nueva lista:");
-                    listarclientes(clientes);
                     //crear
                     break;
                 case 2:
@@ -304,6 +308,8 @@ public class Lab3P2_GabrielaMontes {
             double sal = entrada.nextDouble();
             Cliente c = new Cliente(id, nom, sal);
             clientes.add(c);
+            System.out.println("Nueva lista:");
+            listarclientes(clientes);
             System.out.println("--menu--");
             System.out.println("1. Crear");
             System.out.println("2. Salir");
@@ -508,22 +514,38 @@ public class Lab3P2_GabrielaMontes {
     }
 
     public static void listarveh(ArrayList<Vehiculo> vehiculos) {
+        String carro="";
+        String camion="";
+        String bus="";
+        String moto="";
+        String bici="";
         for (Vehiculo v : vehiculos) {
             if (v instanceof Carro) {
-                System.out.println("" + vehiculos.indexOf(v) + " " + v);
+                carro+="" + vehiculos.indexOf(v) + " " + v+"\n";
+                
             }
             if (v instanceof Camion) {
-                System.out.println("" + vehiculos.indexOf(v) + " " + v);
+                camion+="" + vehiculos.indexOf(v) + " " + v+"\n";
             }
             if (v instanceof Bus) {
-                System.out.println("" + vehiculos.indexOf(v) + " " + v);
+                bus+="" + vehiculos.indexOf(v) + " " + v+"\n";
             }
             if (v instanceof Motocicleta) {
-                System.out.println("" + vehiculos.indexOf(v) + " " + v);
+                moto+="" + vehiculos.indexOf(v) + " " + v+"\n";
             }
             if (v instanceof Bicicleta) {
-                System.out.println("" + vehiculos.indexOf(v) + " " + v);
+                bici+="" + vehiculos.indexOf(v) + " " + v+"\n";
             }
+            System.out.println("Carros");
+            System.out.println(carro);
+            System.out.println("Camion");
+            System.out.println(camion);
+            System.out.println("Bus");
+            System.out.println(bus);
+            System.out.println("Moto");
+            System.out.println(moto);
+            System.out.println("Bicicleta");
+            System.out.println(bici);
         }
     }
 
@@ -726,5 +748,6 @@ public class Lab3P2_GabrielaMontes {
         }
 
     }
-
+   
+        
 }

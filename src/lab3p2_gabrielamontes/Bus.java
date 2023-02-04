@@ -47,7 +47,7 @@ public class Bus extends Vehiculo{
 
     @Override
     public String toString() {
-        return "Bus{" + "pasajeros=" + pasajeros + ", tipo=" + tipo + ", cmaxima="+'}';
+        return "Bus{" + super.toString()+ "pasajeros=" + pasajeros + ", tipo=" + tipo +'}';
     }
     
     

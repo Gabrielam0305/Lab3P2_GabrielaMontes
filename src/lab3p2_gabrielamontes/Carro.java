@@ -52,7 +52,7 @@ public class Carro extends Vehiculo {
 
     @Override
     public String toString() {
-        return "Carro{" + "puertas=" + puertas + ", motor=" + motor + ", velocidad=" + velocidad + '}';
+        return "Carro{" + super.toString()+ "puertas=" + puertas + ", motor=" + motor + ", velocidad=" + velocidad + '}';
     }
     
 }
